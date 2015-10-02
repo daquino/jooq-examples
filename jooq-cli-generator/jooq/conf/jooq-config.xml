@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <jdbc>
+        <driver>org.postgresql.Driver</driver>
+        <url>jdbc:postgresql://localhost/sample</url>
+        <user>daquino</user>
+        <password></password>
+    </jdbc>
+
+    <generator>
+        <database>
+            <name>org.jooq.util.postgres.PostgresDatabase</name>
+            <includes>.*</includes>
+            <excludes>
+                UNUSED_TABLE                # This table (unqualified name) should not be generated
+                | PREFIX_.*                   # Objects with a given prefix should not be generated
+                | SECRET_SCHEMA\.SECRET_TABLE # This table (qualified name) should not be generated
+                | SECRET_ROUTINE              # This routine (unqualified name) ...
+            </excludes>
+            <inputSchema>public</inputSchema>
+        </database>
+        <target>
+            <packageName>com.example.jooq.model</packageName>
+
+            <directory>target/generated-sources/jooq-cli</directory>
+        </target>
+    </generator>
+</configuration>
