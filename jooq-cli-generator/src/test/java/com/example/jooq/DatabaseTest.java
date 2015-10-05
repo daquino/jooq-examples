@@ -1,47 +1,40 @@
 package com.example.jooq;
 
-import com.example.jooq.model.tables.CastMember;
-import com.example.jooq.model.tables.Movie;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.List;
 
 import static com.example.jooq.model.tables.Actor.ACTOR;
 import static com.example.jooq.model.tables.CastMember.CAST_MEMBER;
 import static com.example.jooq.model.tables.Movie.MOVIE;
 
-public class ActorTest {
+public class DatabaseTest {
 
     @Test
-    public void testFindActors() throws Exception {
+    public void testDatabase() throws Exception {
         Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sample", "daquino", "");
         DSLContext context = DSL.using(connection);
+
         System.out.println(
                 context.select(ACTOR.FIRST_NAME, ACTOR.LAST_NAME)
                         .from(ACTOR)
                         .fetch()
         );
-    }
 
-    @Test
-    public void testFindMovies() throws Exception {
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sample", "daquino", "");
-        DSLContext context = DSL.using(connection);
+        System.out.println("");
+
         System.out.println(
                 context.select(MOVIE.TITLE, MOVIE.RELEASE_DATE, MOVIE.GROSS)
                         .from(MOVIE)
                         .orderBy(MOVIE.TITLE.asc())
                         .fetch()
         );
-    }
 
-    @Test
-    public void testFindCast() throws Exception {
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sample", "daquino", "");
-        DSLContext context = DSL.using(connection);
+        System.out.println("");
         System.out.println(
                 context.select(MOVIE.TITLE, ACTOR.FIRST_NAME.concat(" ").concat(ACTOR.LAST_NAME).as("actor_name"), CAST_MEMBER.CHARACTER_NAME)
                         .from(MOVIE, ACTOR, CAST_MEMBER)
@@ -50,5 +43,20 @@ public class ActorTest {
                         .orderBy(MOVIE.TITLE.asc())
                         .fetch()
         );
+
+
+    }
+
+    @Test
+    public void testRecordMapping() throws Exception {
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sample", "daquino", "");
+        DSLContext context = DSL.using(connection);
+        List<Actor> actors = context.select(ACTOR.LAST_NAME, ACTOR.FIRST_NAME)
+                .from(ACTOR)
+                .fetch()
+                .into(Actor.class);
+        for(Actor actor: actors) {
+            System.out.println(String.format("%s, %s", actor.getLastName(), actor.getFirstName()));
+        }
     }
 }

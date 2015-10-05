@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
-    <!-- Configure the database connection here -->
     <jdbc>
         <driver>org.postgresql.Driver</driver>
         <url>jdbc:postgresql://localhost/sample</url>
@@ -44,20 +43,8 @@
                  here, if your database is currently not supported -->
             <name>org.jooq.util.postgres.PostgresDatabase</name>
 
-            <!-- All elements that are generated from your schema (A Java regular expression.
-                 Use the pipe to separate several expressions) Watch out for
-                 case-sensitivity. Depending on your database, this might be
-                 important!
-
-                 You can create case-insensitive regular expressions using this syntax: (?i:expr)
-
-                 Whitespace is ignored and comments are possible.
-                 -->
             <includes>.*</includes>
 
-            <!-- All elements that are excluded from your schema (A Java regular expression.
-                 Use the pipe to separate several expressions). Excludes match before
-                 includes -->
             <excludes>
                 UNUSED_TABLE                # This table (unqualified name) should not be generated
                 | PREFIX_.*                   # Objects with a given prefix should not be generated
@@ -79,16 +66,8 @@
         </generate>
 
         <target>
-            <!-- The destination package of your generated classes (within the
-                 destination directory)
-
-                 jOOQ may append the schema name to this package if generating multiple schemas,
-                 e.g. org.jooq.your.packagename.schema1
-                      org.jooq.your.packagename.schema2 -->
             <packageName>com.example.jooq.model</packageName>
-
-            <!-- The destination directory of your generated classes -->
-            <directory>target/generated-sources/jooq-cli</directory>
+            <directory>../target/generated-sources/jooq-cli</directory>
         </target>
     </generator>
 </configuration>

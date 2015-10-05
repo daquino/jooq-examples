@@ -34,7 +34,7 @@ insert into movie(id, title, release_date, gross) values (10, 'Spider Man 3', '0
 insert into actor(id, first_name, last_name) values (1, 'Chris', 'Pratt');
 insert into actor(id, first_name, last_name) values (2, 'Bryce', 'Howard');
 insert into actor(id, first_name, last_name) values (3, 'Robert', 'Downey Jr.');
-insert into actor(id, first_name, last_name) values (4, 'Scarlett', ' Johansson');
+insert into actor(id, first_name, last_name) values (4, 'Scarlett', 'Johansson');
 insert into actor(id, first_name, last_name) values (5, 'Daniel', 'Radcliffe');
 insert into actor(id, first_name, last_name) values (6, 'Emma', 'Watson');
 insert into actor(id, first_name, last_name) values (7, 'Christian', 'Bale');
