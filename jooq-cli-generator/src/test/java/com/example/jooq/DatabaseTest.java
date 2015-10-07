@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.List;
 
 import static com.example.jooq.model.tables.Actor.ACTOR;
 import static com.example.jooq.model.tables.CastMember.CAST_MEMBER;
@@ -45,18 +44,5 @@ public class DatabaseTest {
         );
 
 
-    }
-
-    @Test
-    public void testRecordMapping() throws Exception {
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sample", "daquino", "");
-        DSLContext context = DSL.using(connection);
-        List<Actor> actors = context.select(ACTOR.LAST_NAME, ACTOR.FIRST_NAME)
-                .from(ACTOR)
-                .fetch()
-                .into(Actor.class);
-        for(Actor actor: actors) {
-            System.out.println(String.format("%s, %s", actor.getLastName(), actor.getFirstName()));
-        }
     }
 }

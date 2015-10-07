@@ -37,6 +37,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
@@ -44,7 +45,7 @@
 
                 <executions>
                     <execution>
-                        <id>generate-h2</id>
+                        <id>generate-jooq</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>

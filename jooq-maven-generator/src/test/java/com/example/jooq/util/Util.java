@@ -1,7 +1,11 @@
-package com.example.jooq;
+package com.example.jooq.util;
 
 
 import org.apache.tomcat.jdbc.pool.DataSource;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Util {
 
@@ -12,6 +16,8 @@ public class Util {
         ds.setUrl("jdbc:postgresql://localhost/sample");
         ds.setDriverClassName("org.postgresql.Driver");
         ds.setDefaultAutoCommit(true);
+        ds.setMinIdle(1);
+        ds.setMaxIdle(5);
         ds.setMaxActive(5);
         ds.setInitialSize(2);
         ds.setMaxWait(5000);
@@ -19,5 +25,15 @@ public class Util {
         ds.setTestWhileIdle(true);
         ds.setTimeBetweenEvictionRunsMillis(600000);
         return ds;
+    }
+
+    public static Connection createConnection() {
+        try {
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/sample", "daquino", "");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
